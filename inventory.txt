@@ -1,0 +1,2 @@
+Web ansible_host=192.168.56.4 ansible_user=root ansible_connection=ssh ansible_ssh_pass=Qwerty@143
+Db ansible_host=192.168.56.5 ansible_user=root ansible_connection=ssh ansible_ssh_pass=Qwerty@143
