@@ -1,8 +1,13 @@
-currentBuild.displayName="testingMVCapp"
+currentBuild.displayName="testingMVC"+currentBuild.number
 
 pipeline
 {
     agent { label 'master' }
+    environment{
+
+    version=Get_version
+
+    }
 	stages
 	{
 
@@ -18,7 +23,12 @@ pipeline
 
     }
 
+}
 
 
+#!/bin/bash
+Get_version () {
 
+version=git rev-parse HEAD
+   return $version
 }
