@@ -27,6 +27,17 @@ pipeline
 				
 			
 			}
+			
+	               stage("docker build")
+			{
+			  steps
+				{				 
+				echo "copy docker file from jenkins container to another macine and run the below command"
+				echo "docker image build -t vinodshetty1990/myapp:${DOCKER_TAG}"
+				echo "after that deply this to kubernetes"
+				}				
+			
+			}
 
 
     }
