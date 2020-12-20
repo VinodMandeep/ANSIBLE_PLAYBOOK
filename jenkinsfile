@@ -3,11 +3,7 @@ currentBuild.displayName="testingMVC"+currentBuild.number
 pipeline
 {
     agent { label 'master' }
-    environment{
 
-    version=Get_version
-
-    }
 	stages
 	{
 
