@@ -1,3 +1,5 @@
+currentBuild.displayName="testingMVCapp"
+
 pipeline
 {
     agent { label 'master' }
