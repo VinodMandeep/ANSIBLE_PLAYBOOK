@@ -3,6 +3,13 @@ currentBuild.displayName="testingMVC"+currentBuild.number
 pipeline
 {
     agent { label 'master' }
+    
+    	environment {
+		
+		DOCKER_TAG = get_version
+		
+		
+	}
 
 	stages
 	{
@@ -14,8 +21,7 @@ pipeline
 				    echo "-------------------->starting to checkout the project <----------------------"
 				git credentialsId: 'vinodgit', url: 'https://github.com/VinodMandeep/ANSIBLE_PLAYBOOK.git/'
 				 echo "-------------------->done <----------------------"
-				 sh "chmod 777 get_version.sh"
-				 sh "./get_version.sh"
+
 				}
 				
 			
@@ -24,6 +30,11 @@ pipeline
 
     }
 
+}
+
+def get_version() {
+commitId=`git rev-parse HEAD`
+return commitId
 }
 
 
