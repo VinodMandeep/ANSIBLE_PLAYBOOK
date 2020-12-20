@@ -34,7 +34,7 @@ pipeline
 }
 
 def get_version() {
-commitId=git rev-parse HEAD
+commitId = sh returnStdout: true, script: 'git rev-parse HEAD'
 return commitId
 }
 
