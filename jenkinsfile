@@ -1,6 +1,10 @@
 pipeline
 {
     agent { label 'master' }
+    environment
+    {
+    MVN_PATH = "/usr/bin/mvn"
+    }
 	stages
 	{
 	
@@ -13,6 +17,16 @@ pipeline
 				 echo "-------------------->done <----------------------"
 				}
 			}
+
+      stage("maven build"){
+
+      steps{
+
+      sh "mvn clean package"
+      }
+
+
+      }
 
     }
 
