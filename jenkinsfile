@@ -6,7 +6,7 @@ pipeline
     
     	environment {
 		
-		DOCKER_TAG = get_version
+		DOCKER_TAG = get_version()
 		
 		
 	}
