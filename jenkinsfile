@@ -26,9 +26,9 @@ pipeline
 }
 
 
-#!/bin/bash
+
 Get_version () {
 
-version=git rev-parse HEAD
+version=`git rev-parse HEAD`
    return $version
 }
