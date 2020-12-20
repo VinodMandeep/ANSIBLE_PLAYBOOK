@@ -20,6 +20,7 @@ pipeline
 				{
 				    echo "-------------------->starting to checkout the project <----------------------"
 				git credentialsId: 'vinodgit', url: 'https://github.com/VinodMandeep/ANSIBLE_PLAYBOOK.git/'
+				echo "--------------------> ${DOCKER_TAG} <----------------------"
 				 echo "-------------------->done <----------------------"
 
 				}
@@ -33,7 +34,7 @@ pipeline
 }
 
 def get_version() {
-commitId=`git rev-parse HEAD`
+commitId=git rev-parse HEAD
 return commitId
 }
 
