@@ -1,29 +1,20 @@
-pipeline {
+pipeline
+{
+    agent { label 'master' }
+	stages
+	{
+	
+			stage("clone")
+			{
+			steps
+				{
+				    echo "-------------------->starting to checkout the project <----------------------"
+				git credentialsId: 'vinodgit', url: 'https://github.com/VinodMandeep/ANSIBLE_PLAYBOOK.git/'
+				 echo "-------------------->done <----------------------"
+				}
+			}
 
-agent any
-
-stages {
-
-stage("build")
-      {
-
-    steps{
-          echo "right now we are building the project"
-          }
-
-      }
-
-  stage("testing files")
-            {
-
-          steps{
-                echo "right now we are testing this project"
-                }
-
-            }
-
-
-        }
+    }
 
 
 
