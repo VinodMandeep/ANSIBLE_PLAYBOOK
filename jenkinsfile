@@ -18,17 +18,15 @@ pipeline
 				    echo "-------------------->starting to checkout the project <----------------------"
 				git credentialsId: 'vinodgit', url: 'https://github.com/VinodMandeep/ANSIBLE_PLAYBOOK.git/'
 				 echo "-------------------->done <----------------------"
+				 sh ./get_version.sh
 				}
+				
+			
 			}
+
 
     }
 
 }
 
 
-
-Get_version () {
-
-version=`git rev-parse HEAD`
-   return $version
-}
