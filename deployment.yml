@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  template:
+    metadata:
+      name: nginx-pod
+      labels:
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: vinodshetty1990/myapp:tagname
+
+      tolerations:
+        - key: "node-role.kubernetes.io/master"
+          effect: "NoSchedule"
+          operator: "Exists"
+
+  replicas: 4
+  selector:
+    matchLabels:
+      type: front-end
