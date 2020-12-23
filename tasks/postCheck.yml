@@ -1,0 +1,12 @@
+
+    - name: "stop docker process"
+      service:
+       name: docker
+       state: stopped
+      failed_when: "false"
+
+    - name: "remove pre reboot running processes file before getting the process"
+      shell: rm -rf /{{ Service_File_path }}/services_postcheck_{{ ansible_host }}.txt
+
+    - name: "get post reboot running processes"
+      shell: systemctl --type=service --state=running > /{{ Service_File_path }}/services_postcheck_{{ ansible_host }}.txt

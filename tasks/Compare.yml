@@ -1,0 +1,32 @@
+
+    - name: "fetch the number of processors after reboot"
+      shell: cat /proc/cpuinfo | grep processor | sed 's/\t/ /g' | tee -a /{{ Service_File_path }}/services_postcheck_{{ ansible_host }}.txt
+      register: Processor_count
+
+    - debug:
+        msg: '{{ Processor_count.stdout }}'
+
+
+    - name: "compare precheck and post check services"
+      shell: diff --ignore-all-space --suppress-common-lines /{{ Service_File_path }}/services_precheck_{{ ansible_host }}.txt /{{ Service_File_path }}/services_postcheck_{{ ansible_host }}.txt | awk {'print $2"  "$5'} | sed '/^[[:space:]]*$/d' | sed 's/running/ /'
+      register: post_check_service
+      failed_when: "false"
+
+    - name: "write output to pre post check file "
+      shell: |
+           echo -e "{{ ansible_host }}"  > /{{ Service_File_path }}/PrePostChecks-{{ ansible_host }}-info.txt
+           echo -e "{{ post_check_service.stdout_lines }}" | sed 's/,/\n/g' | sed 's/u/ /g' >> /{{ Service_File_path }}/PrePostChecks-{{ ansible_host }}-info.txt
+           echo " ---------------------" >> /{{ Service_File_path }}/PrePostChecks-{{ ansible_host }}-info.txt
+
+    - name: "print the services"
+      shell: cat /{{ Service_File_path }}/PrePostChecks-{{ ansible_host }}-info.txt
+      register: Post_Check_Services_output
+
+    - debug:
+        msg: '{{ Post_Check_Services_output }}'
+
+    - name: " fetch all ther server services output"
+      fetch:
+        src: /{{ Service_File_path }}/PrePostChecks-{{ ansible_host }}-info.txt
+        dest: /root/ANSIBLE_PLAYBOOKS/Service_info/
+        flat: yes

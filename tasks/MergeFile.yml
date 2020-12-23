@@ -1,0 +1,9 @@
+
+    - name: remove file before merging
+      shell: rm -rf /root/ANSIBLE_PLAYBOOKS/Service_info/prepostcheck_info.csv state=absent
+
+
+    - name: merge all the files in the folder
+      assemble:
+        src: /root/ANSIBLE_PLAYBOOKS/Service_info
+        dest: /root/ANSIBLE_PLAYBOOKS/Service_info/prepostcheck_info.csv

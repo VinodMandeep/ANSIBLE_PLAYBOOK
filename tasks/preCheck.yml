@@ -1,0 +1,30 @@
+
+    - name: "check if the server is active"
+      ping:
+      register: output
+
+    - name: Creates Service_File_path directory
+      file:
+        path: '/{{ Service_File_path }}'
+        state: directory
+
+    - name: "remove pre reboot running processes file before getting the process"
+      shell: rm -rf /{{ Service_File_path }}/services_precheck_{{ ansible_host }}.txt
+
+    - name: "get pre reboot running processes"
+      shell: systemctl --type=service --state=running > /{{ Service_File_path }}/services_precheck_{{ ansible_host }}.txt
+
+    - name: "fetch the number of processors before reboot"
+      shell: cat /proc/cpuinfo | grep processor | sed 's/\t/ /g' | tee -a /{{ Service_File_path }}/services_precheck_{{ ansible_host }}.txt
+      register: Processor_count
+
+    - debug:
+        msg: '{{ Processor_count.stdout }}'
+
+
+    - name: "print the services"
+      shell: cat /{{ Service_File_path }}/services_precheck_{{ ansible_host }}.txt
+      register: Pre_Check_Services_output
+
+    - debug:
+        msg: '{{ Pre_Check_Services_output }}'

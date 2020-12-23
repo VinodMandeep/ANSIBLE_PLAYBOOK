@@ -1,0 +1,9 @@
+
+    - name: "reboot the servers {{ ansible_host }}"
+      reboot:
+
+
+    - name: Wait 300 seconds, but only start checking after 60 seconds
+      wait_for_connection:
+         delay: 30
+         timeout: 300
